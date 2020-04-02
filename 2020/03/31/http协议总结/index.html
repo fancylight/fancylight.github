@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>http协议总结 | 博客</title><meta name="description" content="描述http一些协议用法和例子"><meta name="keywords" content="协议"><meta name="author" content="fancylight"><meta name="copyright" content="fancylight"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="http协议总结"><meta name="twitter:description" content="描述http一些协议用法和例子"><meta name="twitter:image" content="https://www.fancylight.top/img/http.png"><meta property="og:type" content="article"><meta property="og:title" content="http协议总结"><meta property="og:url" content="https://www.fancylight.top/2020/03/31/http%E5%8D%8F%E8%AE%AE%E6%80%BB%E7%BB%93/"><meta property="og:site_name" content="博客"><meta property="og:description" content="描述http一些协议用法和例子"><meta property="og:image" content="https://www.fancylight.top/img/http.png"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      now = new Date();
+      hour = now.getHours();
+      isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://www.fancylight.top/2020/03/31/http%E5%8D%8F%E8%AE%AE%E6%80%BB%E7%BB%93/"><link rel="prev" title="java并发" href="https://www.fancylight.top/2020/03/31/java%E5%B9%B6%E5%8F%91/"><link rel="next" title="springMVC核心四" href="https://www.fancylight.top/2020/03/31/springMVC%E6%A0%B8%E5%BF%83%E5%9B%9B/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: false,
+  highlightShrink: false,
+  isFontAwesomeV5: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">42</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">24</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 目录</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#http方法"><span class="toc-number">1.</span> <span class="toc-text">http方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Range相关"><span class="toc-number">2.</span> <span class="toc-text">Range相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http缓存机制"><span class="toc-number">3.</span> <span class="toc-text">http缓存机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#新鲜度"><span class="toc-number">3.1.</span> <span class="toc-text">新鲜度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务器是否更新"><span class="toc-number">3.2.</span> <span class="toc-text">服务器是否更新</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Modified"><span class="toc-number">3.2.1.</span> <span class="toc-text">Modified</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Etag"><span class="toc-number">3.2.2.</span> <span class="toc-text">Etag</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache-Control"><span class="toc-number">3.3.</span> <span class="toc-text">Cache-Control</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pragma"><span class="toc-number">3.4.</span> <span class="toc-text">Pragma</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vary"><span class="toc-number">3.5.</span> <span class="toc-text">Vary</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">博客</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 目录</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title"><div class="posttitle">http协议总结</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-03-31<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-04-01</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a></span><div class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 3 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2020/03/31/http%E5%8D%8F%E8%AE%AE%E6%80%BB%E7%BB%93/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></div></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><h3 id="http方法"><a class="header-anchor" href="#http方法">¶</a>http方法</h3>
+<p>一般来说http协议ref文档中定义的都是通过服务器来实现,但并不是说存在类似编译器的东西来强制规定,都仅仅是语义定义.</p>
+<ul>
+<li>定义
+<ul>
+<li><code>get</code>: 用来访问资源,并且将参数放在url中</li>
+<li><code>post</code>: 一般用来发送表单,资源,数据放在请求体</li>
+<li><code>put</code>: 更新资源</li>
+<li><code>options</code>: 用来查看服务器支持的方法</li>
+<li><code>tarce</code>: 排序代理影响,返回请求状态</li>
+<li><code>delete</code>: 删除资源</li>
+<li><code>head</code>: 和<code>get</code>相似,但是仅仅返回头部</li>
+</ul>
+</li>
+<li>幂等性<br>
+简单来说幂等性指的是多次访问对于资源的影响等同于一次请求,<code>ref2616</code>如下定义:<br>
+<code>Methods can also have the property of &quot;idempotence&quot; in that (asidefrom error or expiration issues) the side-effects of N &gt; 0 identicalrequests is the same as for a single request</code>
+<ul>
+<li><code>get</code>,<code>put</code>,<code>head</code>,<code>delete</code>,<code>options</code>,<code>tarce</code>应该被设计为幂等性</li>
+<li><code>post</code>不是幂等性操作,它和<code>put</code>能够完成同样的功能,但是后者要被设计成幂等性操作.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Range相关"><a class="header-anchor" href="#Range相关">¶</a>Range相关</h3>
+<p>作用用于客户端向服务器分段获取资源,典型的使用为h5播放器</p>
+<ul>
+<li>Range<br>
+参考<a href="https://tools.ietf.org/html/rfc7233#section-2.3" target="_blank" rel="noopener">rfc7233</a>
+<ul>
+<li>请求头<br>
+作为req请求头,表示向服务器请求范围资源,语法如下:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Range: &lt;unit&gt;&#x3D;&lt;range-start&gt;-</span><br><span class="line">Range: &lt;unit&gt;&#x3D;&lt;range-start&gt;-&lt;range-end&gt;</span><br><span class="line">Range: &lt;unit&gt;&#x3D;&lt;range-start&gt;-&lt;range-end&gt;, &lt;range-start&gt;-&lt;range-end&gt;</span><br><span class="line">Range: &lt;unit&gt;&#x3D;&lt;range-start&gt;-&lt;range-end&gt;, &lt;range-start&gt;-&lt;range-end&gt;, &lt;range-start&gt;-&lt;range-end&gt;</span><br></pre></td></tr></table></figure>
+例如:<code>Range: bytes=200-1000, 2000-6576, 19000-</code></li>
+<li>相应头<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Accept-Range:bytes &#x2F;&#x2F;服务器告诉浏览器自身支持partial requests</span><br><span class="line">Content-Range: bytes 200-1000&#x2F;67589 &#x2F;&#x2F;表示字节 范围&#x2F;资源总长度</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>实现参考<br>
+springMvc中<a href="/2020/03/23/springMVC%E6%A0%B8%E5%BF%83%E4%BA%8C/#%E6%8A%BD%E8%B1%A1%E9%80%BB%E8%BE%91-v2">回参消息处理器</a>以及</li>
+</ul>
+<h3 id="http缓存机制"><a class="header-anchor" href="#http缓存机制">¶</a>http缓存机制</h3>
+<p>参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ" target="_blank" rel="noopener">mdn</a><br>
+<a href="https://blog.techbridge.cc/2017/06/17/cache-introduction/" target="_blank" rel="noopener">博客</a></p>
+<h4 id="新鲜度"><a class="header-anchor" href="#新鲜度">¶</a>新鲜度</h4>
+<p>浏览器第一次访问服务器资源时,服务器会附带标签告知浏览器将资源缓存多久,在未过期前浏览器不会发出请求</p>
+<ul>
+<li>Expires(1.0协议)<br>
+<code>Expires: Wed, 21 Oct 2017 07:28:00 GMT</code></li>
+<li>Cache-Control<br>
+<code>Cache-Control: max-age=30</code></li>
+</ul>
+<h4 id="服务器是否更新"><a class="header-anchor" href="#服务器是否更新">¶</a>服务器是否更新</h4>
+<h5 id="Modified"><a class="header-anchor" href="#Modified">¶</a>Modified</h5>
+<p>浏览器访问后,服务器相应附带资源的修改时间,下次浏览器访问会带上该标签,若服务发现资源未修改过,那么请求直接返回,并返回<code>304</code>状态码</p>
+<ul>
+<li>Last-Modified:表示上次修改时间,响应头<br>
+<code>Last-Modified: 2017-01-01 13:00:00</code></li>
+<li>If-Modified-Since:浏览器发送表示询问是否发生改变<br>
+<code>If-Modified-Since: 2017-01-01 13:00:00</code></li>
+</ul>
+<h5 id="Etag"><a class="header-anchor" href="#Etag">¶</a>Etag</h5>
+<p>这个功能和上边一致,是为了处理服务器并未修改文件,但是如打开文件修改,撤销,保存操作,那么修改日期也会变,etag类似于md5.</p>
+<ul>
+<li>Etag:响应头<br>
+<code>Etag:x246dfff</code></li>
+<li>If-None-Match:请求头,询问<br>
+<code>If-None-Match:x246dfff</code></li>
+</ul>
+<h4 id="Cache-Control"><a class="header-anchor" href="#Cache-Control">¶</a>Cache-Control</h4>
+<p>实际上这个响应头能够完成的事情比较多</p>
+<ul>
+<li>no-store:表示强制每次都获取</li>
+<li>no-cache:表示浏览器获取最新
+<ul>
+<li>等价于:<code>cache-contorl: max-age=0 etag=xxx</code>,可以理解为每次都发送请求,但是根据tag来获取最新的改变</li>
+</ul>
+</li>
+<li>private:表示只能缓存在浏览器私人缓存中</li>
+<li>public:可以被代理,cdn缓存</li>
+</ul>
+<h4 id="Pragma"><a class="header-anchor" href="#Pragma">¶</a>Pragma</h4>
+<p>1.0定义的一个头,等价于<code>Cache-Control:no-cache</code>,用来兼容1.0</p>
+<h4 id="Vary"><a class="header-anchor" href="#Vary">¶</a>Vary</h4>
+<p>参考<a href="https://blog.csdn.net/qq_29405933/article/details/84315254" target="_blank" rel="noopener">vary</a><br>
+该响应头表示这个数据对于客户端来说可能会其变化,一般要和缓存服务一起使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Vary: *</span><br><span class="line">Vary: &lt;header-name&gt;, &lt;header-name&gt;, ...</span><br></pre></td></tr></table></figure>
+<img src="/2020/03/31/http%E5%8D%8F%E8%AE%AE%E6%80%BB%E7%BB%93/vary.png" class="">
+<p>注意多次访问实际上都是同一个url,也就是同一个接口返回针对不同的客户端不同的数据,通过<code>请求头</code>来判断客户端</p>
+<ul>
+<li>当第一次访问,无缓存直接访问服务器,服务器设置<code>Vary:Context-Encoding</code>,缓存数据库缓存数据和响应头,并返回数据</li>
+<li>第二次访问,缓存服务器根据<code>Context-Endcoding</code>来判断,还是没有命中,继续访问服务器并缓存</li>
+<li>第三次访问缓存服务器命中</li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">fancylight</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.fancylight.top/2020/03/31/http%E5%8D%8F%E8%AE%AE%E6%80%BB%E7%BB%93/">https://www.fancylight.top/2020/03/31/http%E5%8D%8F%E8%AE%AE%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.fancylight.top" target="_blank">博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8D%8F%E8%AE%AE/">协议    </a></div><div class="post_share"><div class="social-share" data-image="/img/spring.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/03/31/java%E5%B9%B6%E5%8F%91/"><img class="prev_cover" src="/img/java.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">java并发</div></div></a></div><div class="next-post pull_right"><a href="/2020/03/31/springMVC%E6%A0%B8%E5%BF%83%E5%9B%9B/"><img class="next_cover" src="/img/spring.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">springMVC核心四</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '624d139155758ea48077',
+  clientSecret: 'cc126a301586ea63779cec6a6b53101749dbc9dd',
+  repo: 'gittalk_issue',
+  owner: 'fancylight',
+  admin: ['fancylight'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By fancylight</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="/js/search/local-search.js"></script></body></html>
